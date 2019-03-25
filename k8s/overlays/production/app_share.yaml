@@ -1,0 +1,12 @@
+# Environment variables
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: DATABASE_URL
+    value: postgres://postgres:postgres@${GKE_DATABASE_HOST}/example_production
+# TODO: replace the values with the proper values
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: SECRET_KEY_BASE
+    value: 4364d6a773bc68af9e5e06f906da9e4ff18ce9bde584f7316230b881eb046ac5b392417286591e6eb9fa9fcaecd947d8515836853e20f4e2f29e3ae77599f8b7

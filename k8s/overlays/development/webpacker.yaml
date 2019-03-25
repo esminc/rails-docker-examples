@@ -1,0 +1,38 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: webpacker
+spec:
+  selector:
+    deployment: webpacker
+  type: ClusterIP
+  ports:
+    - port: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webpacker
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        deployment: webpacker
+    spec:
+      containers:
+        - name: rails
+          image: 'hibariya/rails-docker-examples-base'
+          imagePullPolicy: Always
+          command: ['bin/webpack-dev-server']
+          ports:
+            - containerPort: 80
+          env:
+            - name: WEBPACKER_DEV_SERVER_HOST
+              value: '0.0.0.0'
+            - name: WEBPACKER_DEV_SERVER_PORT
+              value: '80'
+            - name: WEBPACKER_DEV_SERVER_PUBLIC
+              value: '${MINIKUBE_IP}'
+          volumeMounts: []
+      volumes: []

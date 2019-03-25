@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  rails:
+    # Build the image from Dockerfile
+    #   build:
+    #     context: .
+    #     dockerfile: Dockerfile
+    # or just pull the image as follows
+    image: hibariya/rails-docker-examples-base
+    ports: ['3000:3000', '3001:3001']
+    tty: true
+    stdin_open: true
+    environment:
+      DATABASE_HOST: postgres
+      WEBPACKER_DEV_SERVER_HOST: webpacker
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+      - elm-test:/root/.elm
+      - elm-test:/app/elm-stuff
+    depends_on:
+      - postgres
+
+  webpacker:
+    build:
+      context: .
+    command: ['bin/webpack-dev-server']
+    ports: ['3035:3035']
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+      - elm:/root/.elm
+      - elm:/app/elm-stuff
+
+  postgres:
+    image: postgres:11.2-alpine
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  selenium:
+    image: selenium/standalone-chrome-debug:3.141.59
+    ports: ['5900:5900']
+    environment:
+      VNC_NO_PASSWORD: 1
+
+volumes:
+  bundle:
+  db:
+  elm:
+  elm-test:

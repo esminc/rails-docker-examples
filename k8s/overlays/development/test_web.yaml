@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: test-web
+spec:
+  selector:
+    deployment: ops-rails
+  type: ClusterIP
+  ports:
+    - port: 3001

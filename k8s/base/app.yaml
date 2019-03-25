@@ -1,0 +1,53 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: web
+spec:
+  selector:
+    deployment: rails
+  type: ClusterIP
+  ports:
+    - port: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        deployment: rails
+    spec:
+      containers:
+        - name: rails
+          image: 'hibariya/rails-docker-examples-base'
+          imagePullPolicy: Always
+          command: ['bundle', 'exec', 'puma', '-C', 'config/puma.rb']
+          ports:
+            - containerPort: 3000
+          env: []
+          volumeMounts: []
+      volumes: []
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ops-rails
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        deployment: ops-rails
+    spec:
+      containers:
+        - name: rails
+          image: 'hibariya/rails-docker-examples-base'
+          command: ['bash', '-c', 'sleep Infinity']
+          ports:
+            - containerPort: 3001
+          env: []
+          volumeMounts: []
+      volumes: []

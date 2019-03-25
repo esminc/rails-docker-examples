@@ -1,0 +1,7 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-web
+  annotations:
+    #kubernetes.io/ingress.global-static-ip-name: rails-docker-examples
+    #ingress.gcp.kubernetes.io/pre-shared-cert: rails-docker-examples

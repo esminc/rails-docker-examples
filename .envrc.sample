@@ -1,0 +1,4 @@
+PATH_add compose-bin
+export APP_ROOT=$(pwd | sed -e 's/^\/home/\/hosthome/')
+export MINIKUBE_IP=$(minikube ip)
+export GKE_DATABASE_HOST=$(cd gke && terraform output | grep cloudsql_ip_address | awk '{ print $3 }')

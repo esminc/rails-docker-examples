@@ -1,0 +1,6 @@
+commonLabels:
+  app: rails-docker-examples
+
+resources:
+  - app.yaml
+  - ingress.yaml

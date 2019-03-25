@@ -1,0 +1,3 @@
+#!/bin/bash -e
+
+exec docker-compose exec rails bundle "$@"

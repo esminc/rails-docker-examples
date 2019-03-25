@@ -1,0 +1,31 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: web
+spec:
+  selector:
+    deployment: rails
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: rails
+          image: 'hibariya/rails-docker-examples-production:latest'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ops-rails
+spec:
+  template:
+    spec:
+      containers:
+        - name: rails
+          image: 'hibariya/rails-docker-examples-production:latest'

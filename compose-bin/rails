@@ -1,0 +1,3 @@
+#!/bin/bash -e
+
+exec $(dirname "$0")/bundle exec rails "$@"

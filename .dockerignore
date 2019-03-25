@@ -1,0 +1,10 @@
+gke
+k8s
+log/*
+node_modules
+test
+tmp
+elm-stuff
+.elm
+Dockerfile*
+docker-compose.yml

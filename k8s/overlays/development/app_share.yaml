@@ -1,0 +1,40 @@
+# Volumes
+- op: replace
+  path: /spec/template/spec/volumes
+  value:
+    - name: app-src
+      hostPath:
+        path: ${APP_ROOT}
+    - name: bundler
+      persistentVolumeClaim:
+        claimName: data
+    - name: elm
+    - name: elm-stuff
+- op: replace
+  path: /spec/template/spec/containers/0/volumeMounts
+  value:
+    - name: app-src
+      mountPath: /app
+    - name: bundler
+      mountPath: /usr/local/bundle
+    - name: elm
+      mountPath: /root/.elm
+    - name: elm-stuff
+      mountPath: /app/elm-stuff
+
+# Environment variables
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: DATABASE_HOST
+    value: local-postgresql
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: SELENIUM_URL
+    value: http://local-selenium:4444/wd/hub
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: RAILS_TEST_URL
+    value: http://local-test-web:3001
