@@ -1,6 +1,6 @@
 # rails-docker-examples
 
-Examples for development environment with Docker Compose and Kubernetes
+Examples for development environment for Rails application with Docker Compose and Kubernetes
 
 ## Development with Docker Compose
 
@@ -14,9 +14,6 @@ docker-compose up -d
 # Add binstubs to $PATH
 export PATH=$(pwd)/compose-bin:$PATH
 
-cp -p .envrc.sample .envrc
-direnv allow
-
 # Run tests with a browser
 rails test:system
 
@@ -26,3 +23,13 @@ rails test:system
 ## Development with Kubernetes
 
 [k8s/README.md](https://github.com/esminc/rails-docker-examples/blob/master/k8s)
+
+## Multi-stage build example
+
+Building assets files with multi-stage build here:
+
+[Dockerfile.production](https://github.com/esminc/rails-docker-examples/blob/master/Dockerfile.production)
+
+## Terraform example for GKE cluster
+
+[k8s/overlays/production](https://github.com/esminc/rails-docker-examples/blob/master/k8s/overlays/production) has been tested with an environment created by this example: [gke](https://github.com/esminc/rails-docker-examples/blob/master/gke)
